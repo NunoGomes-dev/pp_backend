@@ -16,6 +16,7 @@ class User extends Model {
           type: DataTypes.STRING,
           allowNull: false,
           unique: true,
+          validate: { isEmail: true },
         },
         password: {
           type: DataTypes.STRING,
@@ -36,6 +37,7 @@ class User extends Model {
         sequelize,
         freezeTableName: true,
         tableName: "users",
+        modelName: "user",
       }
     );
   }

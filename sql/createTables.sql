@@ -16,19 +16,19 @@ CREATE TABLE Clients (
     -- FOREIGN KEY (created_by) REFERENCES Clients(id)
 );
 
--- @block 
-CREATE TABLE Types (
-	id BIGSERIAL PRIMARY KEY,
-	name VARCHAR(55) NOT NULL,
-    FOREIGN KEY (client_id) REFERENCES Clients(id)
-);
+-- -- @block 
+-- CREATE TABLE Types (
+-- 	id BIGSERIAL PRIMARY KEY,
+-- 	name VARCHAR(55) NOT NULL,
+--     -- FOREIGN KEY (client_id) REFERENCES Clients(id)
+-- );
 
 -- @block 
 CREATE TABLE Orders (
 	id BIGSERIAL PRIMARY KEY,
 	name VARCHAR(55) NOT NULL,
     FOREIGN KEY (client_id) REFERENCES Clients(id)
-    FOREIGN KEY (type_id) REFERENCES Types(id)
+    -- FOREIGN KEY (type_id) REFERENCES Types(id)
     -- FOREIGN KEY (created_by) REFERENCES Users(id)
 );
 
@@ -71,3 +71,5 @@ CREATE TABLE part (
     FOREIGN KEY (storage_id) REFERENCES Storages(id)
     -- FOREIGN KEY (created_by) REFERENCES Users(id)
 );
+
+
