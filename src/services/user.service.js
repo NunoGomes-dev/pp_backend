@@ -1,4 +1,5 @@
 const User = require("../models/user.model");
+const sequelize = require("sequelize");
 
 module.exports = {
   async getAll() {
@@ -11,17 +12,37 @@ module.exports = {
   },
   async createOne({ firstname, lastname, email, password, vat, phone }) {
     try {
-      const user = await User.create({
-        firstname,
-        lastname,
-        email,
-        password,
-        vat,
-        phone,
+      const result = await User.sequelize.transaction(async (t) => {
+        const user = await User.create(
+          {
+            firstname,
+            lastname,
+            email,
+            password,
+            vat,
+            phone,
+          },
+          { transaction: t }
+        );
+        const parsedUser = user.get({ plain: true });
+        delete parsedUser["password"];
+        return { ...parsedUser };
       });
-      return user;
+      return result;
     } catch (err) {
-      throw "Error creating user ( " + err + " ) ";
+      throw "Erro ao criar utilizador ( " + err + " ) ";
+    }
+  },
+  async getByEmailWithPassword({ email }) {
+    try {
+      const user = await User.findOne({ where: { email } });
+      if (!user) throw "Não encontrado";
+      const userData = user.get({ plain: true });
+      return { ...userData };
+    } catch (error) {
+      throw (
+        "Erro ao obter utilizador com o email: " + email + " ( " + error + " ) "
+      );
     }
   },
 };
