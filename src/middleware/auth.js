@@ -2,11 +2,26 @@ require("dotenv/config");
 const jwt = require("jsonwebtoken");
 
 const getAuth = (req, res, next) => {
-  const token = req.headers.authorization;
+  const authToken = req.headers.authorization;
 
-  if (!token) {
-    return res.status(401).json({ msg: "Falha na autenticação" });
+  if (!authToken) {
+    return res.status(401).json({ msg: "Token de autenticação não existente" });
   }
+
+  const parts = authToken.split(" ");
+
+  if (parts.length !== 2) {
+    return res
+      .status(401)
+      .send({ erro: "Token de autenticação sem ambas as partes" });
+  }
+
+  const [prefix, token] = parts;
+  if (!/^Bearer_pp$/i.test(prefix))
+    return res
+      .status(401)
+      .send({ erro: "Token de autenticação mal formatado" });
+
   try {
     const decoded = jwt.verify(token, process.env.SECRET_KEY);
     req.user = decoded.user;

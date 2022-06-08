@@ -5,6 +5,7 @@ class Part extends Model {
     super.init(
       {
         name: { type: DataTypes.STRING, allowNull: false },
+        ref: DataTypes.STRING,
         description: DataTypes.STRING,
         image: DataTypes.STRING,
         stock: {

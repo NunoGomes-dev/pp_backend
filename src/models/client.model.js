@@ -15,6 +15,8 @@ class Client extends Model {
           unique: true,
           validate: { isEmail: true },
         },
+        contact: DataTypes.STRING,
+        vat: DataTypes.STRING,
       },
       {
         sequelize,

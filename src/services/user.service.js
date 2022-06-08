@@ -1,5 +1,4 @@
 const User = require("../models/user.model");
-const sequelize = require("sequelize");
 
 module.exports = {
   async getAll() {
