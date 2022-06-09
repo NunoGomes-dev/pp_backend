@@ -29,7 +29,7 @@ module.exports = {
     try {
       const hashedPw = await bcrypt.hash(password, 10);
 
-      const user = await UserService.createOne({
+      const user = await UserService.create({
         firstname,
         lastname,
         email: email.toLowerCase(),
@@ -41,7 +41,6 @@ module.exports = {
       if (!user) return res.status(500).send("Erro ao criar utilizador");
       return res.status(200).send(user);
     } catch (err) {
-      console.log(err);
       return res.status(500).send({ err });
     }
   },
@@ -53,7 +52,6 @@ module.exports = {
       if (!password) return res.status(500).send("Palavra-passe inválida");
 
       const user = await UserService.getByEmailWithPassword({ email });
-      console.log("hey", user);
 
       const next = bcrypt.compare(password, user.password);
 
@@ -69,7 +67,6 @@ module.exports = {
         user: { ...user },
       });
     } catch (error) {
-      console.log(error);
       return res.status(401).send({ error });
     }
   },

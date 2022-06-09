@@ -5,7 +5,7 @@ class Order extends Model {
     super.init(
       {
         type: {
-          type: DataTypes.ENUM("type1", "type2", "type3"),
+          type: DataTypes.ENUM("revenda", "final"),
           allowNull: false,
         },
         observations: DataTypes.TEXT,

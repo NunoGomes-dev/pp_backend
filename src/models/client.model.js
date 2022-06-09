@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require("sequelize");
-const Order = require("./order.model");
 
 class Client extends Model {
   static init(sequelize) {
@@ -15,6 +14,8 @@ class Client extends Model {
           unique: true,
           validate: { isEmail: true },
         },
+        contact: DataTypes.STRING,
+        vat: DataTypes.STRING,
       },
       {
         sequelize,

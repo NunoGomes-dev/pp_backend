@@ -5,8 +5,10 @@ class Part extends Model {
     super.init(
       {
         name: { type: DataTypes.STRING, allowNull: false },
+        ref: DataTypes.STRING,
         description: DataTypes.STRING,
         image: DataTypes.STRING,
+        brand: DataTypes.STRING,
         stock: {
           type: DataTypes.INTEGER,
           validate: {
@@ -32,9 +34,6 @@ class Part extends Model {
     );
   }
   static associate(models) {
-    this.belongsTo(models.brand, {
-      foreignKey: "brand_id",
-    });
     this.belongsTo(models.provider, {
       foreignKey: "provider_id",
     });

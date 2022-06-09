@@ -7,6 +7,7 @@ class Storage extends Model {
         name: {
           type: DataTypes.STRING,
           allowNull: false,
+          unique: true,
         },
       },
       {
