@@ -2,6 +2,8 @@ const router = require("express").Router();
 
 router.use("/users", require("./users"));
 router.use("/clients", require("./clients"));
+router.use("/storages", require("./storages"));
+router.use("/providers", require("./providers"));
 
 router.use("/", async (req, res) => {
   try {

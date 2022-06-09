@@ -44,7 +44,9 @@ module.exports = {
       });
       return result;
     } catch (err) {
-      throw "Erro ao criar cliente ( " + err + " ) ";
+      throw (
+        "Erro ao criar cliente ( " + (err?.errors[0]?.message || err) + " ) "
+      );
     }
   },
   async update(payload) {
