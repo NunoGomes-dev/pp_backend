@@ -18,6 +18,7 @@ module.exports = {
   async findById(client_id) {
     try {
       const client = await Client.findByPk(client_id);
+      if (!client) throw "Cliente não encontrado";
       return client;
     } catch (err) {
       throw (
@@ -48,7 +49,6 @@ module.exports = {
   },
   async update(payload) {
     const { id, ...rest } = payload;
-    console.log(id);
 
     try {
       const result = Client.sequelize.transaction(async (t) => {
@@ -66,6 +66,7 @@ module.exports = {
             transaction: t,
           }
         );
+        if (!client) throw "Cliente não encontrado";
         return client;
       });
       return result;

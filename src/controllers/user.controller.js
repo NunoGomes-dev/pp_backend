@@ -29,7 +29,7 @@ module.exports = {
     try {
       const hashedPw = await bcrypt.hash(password, 10);
 
-      const user = await UserService.createOne({
+      const user = await UserService.create({
         firstname,
         lastname,
         email: email.toLowerCase(),

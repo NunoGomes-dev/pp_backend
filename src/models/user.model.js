@@ -20,9 +20,6 @@ class User extends Model {
         },
         password: {
           type: DataTypes.STRING,
-          // validate: {
-          //   is: /^[0-9a-f]{64}$/i,
-          // },
         },
         vat: {
           type: DataTypes.STRING,

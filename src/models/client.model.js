@@ -1,5 +1,4 @@
 const { Model, DataTypes } = require("sequelize");
-const Order = require("./order.model");
 
 class Client extends Model {
   static init(sequelize) {

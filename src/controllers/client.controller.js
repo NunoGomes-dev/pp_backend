@@ -35,7 +35,7 @@ module.exports = {
     }
   },
 
-  async createOne(req, res) {
+  async create(req, res) {
     const { name, email, contact, vat } = req.body;
 
     if (!name) return res.status(500).send("Nome inválido");

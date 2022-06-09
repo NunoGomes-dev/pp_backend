@@ -1,3 +1,4 @@
+const { ValidationError } = require("sequelize");
 const User = require("../models/user.model");
 
 module.exports = {
@@ -9,7 +10,20 @@ module.exports = {
       throw "Error getting users ( " + err + " ) ";
     }
   },
-  async createOne({ firstname, lastname, email, password, vat, phone }) {
+  async getByEmailWithPassword({ email }) {
+    try {
+      const user = await User.findOne({ where: { email } });
+      if (!user) throw "Não encontrado";
+      const userData = user.get({ plain: true });
+      return { ...userData };
+    } catch (error) {
+      throw (
+        "Erro ao obter utilizador com o email: " + email + " ( " + error + " ) "
+      );
+    }
+  },
+
+  async create({ firstname, lastname, email, password, vat, phone }) {
     try {
       const result = await User.sequelize.transaction(async (t) => {
         const user = await User.create(
@@ -29,18 +43,8 @@ module.exports = {
       });
       return result;
     } catch (err) {
-      throw "Erro ao criar utilizador ( " + err + " ) ";
-    }
-  },
-  async getByEmailWithPassword({ email }) {
-    try {
-      const user = await User.findOne({ where: { email } });
-      if (!user) throw "Não encontrado";
-      const userData = user.get({ plain: true });
-      return { ...userData };
-    } catch (error) {
       throw (
-        "Erro ao obter utilizador com o email: " + email + " ( " + error + " ) "
+        "Erro ao criar utilizador ( " + (err.errors[0].message || err) + " ) "
       );
     }
   },
