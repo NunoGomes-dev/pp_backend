@@ -1,10 +1,12 @@
 const { Model, DataTypes } = require("sequelize");
+const { beforeCreate, beforeUpdate } = require("../hooks/part.hooks");
 
 class Part extends Model {
   static init(sequelize) {
     super.init(
       {
         name: { type: DataTypes.STRING, allowNull: false },
+        slug: { type: DataTypes.STRING, unique: true },
         ref: DataTypes.STRING,
         description: DataTypes.STRING,
         image: DataTypes.STRING,
@@ -21,28 +23,34 @@ class Part extends Model {
             min: 0,
           },
         },
-        cost: { type: DataTypes.FLOAT, allowNull: false },
-        price: { type: DataTypes.FLOAT, allowNull: false },
-        resale_price: { type: DataTypes.FLOAT, allowNull: false },
+        cost: DataTypes.FLOAT,
+        price: DataTypes.FLOAT,
+        resale_price: DataTypes.FLOAT,
       },
       {
         sequelize,
         freezeTableName: true,
         modelName: "part",
         tableName: "parts",
+        hooks: {
+          beforeCreate: (part, options) => beforeCreate(part, options),
+          beforeUpdate: (part, options) => beforeUpdate(part, options),
+        },
       }
     );
   }
   static associate(models) {
     this.belongsTo(models.provider, {
       foreignKey: "provider_id",
+      as: "provider",
     });
     this.belongsTo(models.storage, {
       foreignKey: "storage_id",
+      as: "storage",
     });
     this.belongsToMany(models.order, {
       through: { model: models.order_item },
-      foreignKey: "part_id",
+      as: "orderItems",
     });
   }
 }

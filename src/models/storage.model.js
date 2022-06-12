@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const { beforeCreate, beforeUpdate } = require("../hooks/storage.hooks");
 
 class Storage extends Model {
   static init(sequelize) {
@@ -7,6 +8,9 @@ class Storage extends Model {
         name: {
           type: DataTypes.STRING,
           allowNull: false,
+        },
+        slug: {
+          type: DataTypes.STRING,
           unique: true,
         },
       },
@@ -15,6 +19,10 @@ class Storage extends Model {
         freezeTableName: true,
         modelName: "storage",
         tableName: "storages",
+        hooks: {
+          beforeCreate: (s, o) => beforeCreate(s, o),
+          beforeUpdate: (s, o) => beforeUpdate(s, o),
+        },
       }
     );
   }
