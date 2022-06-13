@@ -32,8 +32,7 @@ class Provider extends Model {
   }
   static associate(models) {
     this.hasMany(models.part, {
-      foreignKey: "part_id",
-      as: "parts",
+      foreignKey: "provider_id",
     });
   }
 }

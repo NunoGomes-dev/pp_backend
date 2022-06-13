@@ -70,7 +70,7 @@ module.exports = {
       });
       return result;
     } catch (err) {
-      throw "Erro ao criar peça ( " + (err?.errors[0]?.message || err) + " ) ";
+      throw "Erro ao criar peça ( " + err + " ) ";
     }
   },
   async update(payload) {

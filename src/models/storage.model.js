@@ -28,8 +28,7 @@ class Storage extends Model {
   }
   static associate(models) {
     this.hasMany(models.part, {
-      foreignKey: "part_id",
-      as: "parts",
+      foreignKey: "storage_id",
     });
   }
 }

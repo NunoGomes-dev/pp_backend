@@ -42,11 +42,9 @@ class Part extends Model {
   static associate(models) {
     this.belongsTo(models.provider, {
       foreignKey: "provider_id",
-      as: "provider",
     });
     this.belongsTo(models.storage, {
       foreignKey: "storage_id",
-      as: "storage",
     });
     this.belongsToMany(models.order, {
       through: { model: models.order_item },
