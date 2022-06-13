@@ -67,6 +67,7 @@ module.exports = {
               id,
             },
             returning: true,
+            individualHooks: true,
           },
           {
             transaction: t,

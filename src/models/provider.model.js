@@ -1,4 +1,5 @@
 const { Model, DataTypes } = require("sequelize");
+const { beforeCreate, beforeUpdate } = require("../hooks/provider.hooks");
 
 class Provider extends Model {
   static init(sequelize) {
@@ -7,6 +8,9 @@ class Provider extends Model {
         name: {
           type: DataTypes.STRING,
           allowNull: false,
+        },
+        slug: {
+          type: DataTypes.STRING,
           unique: true,
         },
         email: {
@@ -19,13 +23,16 @@ class Provider extends Model {
         freezeTableName: true,
         modelName: "provider",
         tableName: "providers",
+        hooks: {
+          beforeCreate: (s, o) => beforeCreate(s, o),
+          beforeUpdate: (s, o) => beforeUpdate(s, o),
+        },
       }
     );
   }
   static associate(models) {
     this.hasMany(models.part, {
-      foreignKey: "part_id",
-      as: "parts",
+      foreignKey: "provider_id",
     });
   }
 }

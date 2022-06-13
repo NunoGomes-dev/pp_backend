@@ -12,7 +12,7 @@ module.exports = {
 
       return { total: count, storages: rows };
     } catch (err) {
-      throw "Erro ao obter gaveta ( " + err + " ) ";
+      throw "Erro ao obter gavetas ( " + err + " ) ";
     }
   },
   async findById(storage_id) {
@@ -62,6 +62,7 @@ module.exports = {
               id,
             },
             returning: true,
+            individualHooks: true,
           },
           {
             transaction: t,
