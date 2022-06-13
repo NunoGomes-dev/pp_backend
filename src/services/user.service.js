@@ -43,9 +43,7 @@ module.exports = {
       });
       return result;
     } catch (err) {
-      throw (
-        "Erro ao criar utilizador ( " + (err?.errors[0]?.message || err) + " ) "
-      );
+      throw "Erro ao criar utilizador ( " + err + " ) ";
     }
   },
 };
